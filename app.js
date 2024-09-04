@@ -28,7 +28,7 @@ function renderUsers(){
         })
 }
 
-function doesUserExsit(email){
+function doesUserExist(email){
     let user = users.filter((user)=>{
         return user.email == email
     })
@@ -49,16 +49,34 @@ function addUser(){
         name: name.value,
         email: email.value,
     };
-    let userExsit = doesUserExsit(email.value);
-    if(userExsit == false){
-        users.push(user);
-        alert.classList.add('success');
-        alert.innerText = 'User added successfully!';
+    let userExists = doesUserExist(email.value);
+    let emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    if(name.value == ""){
+        alert.classList.add('danger');
+        alert.innerText = 'Please provide a name!';
+        hideAlert();
+    }
+    else if(email.value == "")
+    {
+        alert.classList.add('danger');
+        alert.innerText = 'Please provide an email!';
+        hideAlert();
+    }
+    else if(!emailPattern.test(email.value)){
+        alert.classList.add('danger');
+        alert.innerText = 'Please provide a valid email!';
+        hideAlert();
+    }
+    else if(userExists){
+        alert.classList.add('danger');
+        alert.innerText = 'Email already exists!';
         hideAlert();
     }
     else{
-        alert.classList.add('danger');
-        alert.innerText = 'Email already exists!';
+        users.push(user);
+        alert.classList.add('success');
+        alert.innerText = 'User added successfully!';
         hideAlert();
     }
     renderUsers();
