@@ -16,7 +16,8 @@ function renderUsers(){
             name.innerText = user.name;
             email.innerText = user.email;
 
-            delButton.innerText = 'Delete';
+            // delButton.innerText = 'Delete';
+            delButton.innerHTML = '<i class="bi bi-trash"></i>';
             delButton.classList.add('btn-delete');
             delButton.onclick = () => deleteUser(index);
 
